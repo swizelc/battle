@@ -2,6 +2,7 @@ feature 'End of Game' do
   context 'Player 1 is 0HP' do
     before do
       sign_in_and_play
+      allow(Kernel).to receive(:rand).and_return 10
       10.times{attack_and_ok}
     end
     scenario 'Player 1 loses' do

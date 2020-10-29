@@ -1,12 +1,24 @@
-<% if @game.current_turn ==@game.players[0]%>
-  <%= @game.players[0].name %> attacked <%= @game.players[1].name %>
-  <br>
-<%else%>
-  <%= @game.players[1].name %> attacked <%= @game.players[0].name %>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+<link rel ="stylesheet" type="text/css" href="/css/attack_screen.css"/>
+<div id="attack_details">
+  <%if @has_attacked%>
+    <% if @game.current_turn ==@game.players[0]%>
+      <%= @game.players[0].name %> attacked <%= @game.players[1].name %>
+      <br>
+    <%else%>
+      <%= @game.players[1].name %> attacked <%= @game.players[0].name %>
+    <%end%>
+  <%else%>
+    <% if @game.current_turn == @game.players[0]%>
+      <%= @game.players[0].name %> has healed
+      <br>
+    <%else%>
+      <%= @game.players[1].name %> has healed
+    <%end%>
+  <%end%>
 
-<%end%>
-
+</div>
 <br>
 <form action="/switch-turns" method="post">
-  <input type="submit" value="OK">
+  <input type="submit" id="ok_button" value="OK">
 </form>

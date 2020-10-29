@@ -1,12 +1,20 @@
-<%= @game.players[0].name %> vs. <%= @game.players[1].name %>
-<br>
-<%= @game.current_turn.name %>'s turn
-<br>
-<%= @game.players[0].name %>: <%= @game.players[0].hit_points %>HP
-<br>
-<%= @game.players[1].name %>: <%= @game.players[1].hit_points %>HP
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+<link rel ="stylesheet" type="text/css" href="/css/play_screen.css"/>
+<div id="game_details">
+  <%= @game.players[0].name %> vs. <%= @game.players[1].name %>
+  <br>
+  <%= @game.current_turn.name %>'s turn
+  <br>
+</div>
+<div id="hp">
+  <%= @game.players[0].name %>: <%= @game.players[0].hit_points %>HP &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  <%= @game.players[1].name %>: <%= @game.players[1].hit_points %>HP
+</div>
 <br>
 <br>
 <form action="/attack" method="post">
-  <input type="submit" value="Attack">
+  <input type="submit" id="attack_button" value="Attack">
+</form>
+<form action="/heal" method="post">
+  <input type="submit" id="heal_button" value="Heal">
 </form>

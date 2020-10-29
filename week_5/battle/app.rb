@@ -21,18 +21,28 @@ class Battle < Sinatra::Base
   end
 
   get '/attack' do
+    @has_attacked = session[:has_attacked]
     @game = Game.instance
     erb :attack
   end
   post '/attack' do
     @game = Game.instance
     @game.attack(@game.opponent_of(@game.current_turn))
+    session[:has_attacked] = true
     if @game.game_over?
       redirect '/game-over'
     else
       redirect '/attack'
     end
   end
+
+  post '/heal' do
+    @game = Game.instance
+    @game.heal(@game.current_turn)
+    session[:has_attacked] = false
+    redirect '/attack'
+  end
+
   post '/switch-turns' do
     @game = Game.instance
     @game.switch_turns

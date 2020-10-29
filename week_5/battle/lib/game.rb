@@ -20,8 +20,13 @@ class Game
   def game_over?
     losing_players.any?
   end
+
   def loser
     losing_players.first
+  end
+
+  def heal(player)
+    player.gain_points
   end
 
   def self.create(player1,player2)
