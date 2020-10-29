@@ -12,8 +12,29 @@ class Game
   def switch_turns
     @current_turn = opponent_of(@current_turn)
   end
-  private
+
   def opponent_of(check_player)
     @players.select {|player| player != check_player}.first
   end
+
+  def game_over?
+    losing_players.any?
+  end
+  def loser
+    losing_players.first
+  end
+
+  def self.create(player1,player2)
+    @game = Game.new(player1, player2)
+  end
+
+  def self.instance
+    @game
+  end
+
+  private
+  def losing_players
+    @players.select { |player| player.hit_points <= 0 }
+  end
+
 end

@@ -1,9 +1,11 @@
 require 'game'
 
 RSpec.describe Game do
-  let(:player1) {double :player1}
-  let(:player2) {double :player2}
+  let(:player1) {double("player1", :hit_points => 60)}
+  let(:player2) {double("player2" ,:hit_points => 60)}
+  let(:dead_player) {double("dead_player", :hit_points => 0)}
   subject {Game.new(player1, player2)}
+
   describe '#attack' do
     it 'damages the player' do
       expect(player1).to receive(:receive_damage)
@@ -21,4 +23,18 @@ RSpec.describe Game do
       expect(subject.current_turn).to eq player2
     end
   end
+  describe 'game_over?' do
+    it 'returns false if game is not over' do
+      finished_game = Game.new(player1, dead_player)
+      expect(finished_game.game_over?).to eq true
+    end
+  end
+
+  describe 'loser' do
+    it 'returns the losing player' do
+      finished_game = Game.new(player1, dead_player)
+      expect(finished_game.loser).to eq dead_player
+    end
+  end
+
 end
